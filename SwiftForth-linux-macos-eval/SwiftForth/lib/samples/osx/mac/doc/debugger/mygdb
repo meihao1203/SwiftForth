@@ -1,0 +1,125 @@
+define hi
+x/4i $pc
+end
+document hi
+show next 4 instructions
+end
+define ss
+echo top data stack ebx
+p/x $ebx
+echo next 3 data stack items on ebp\n
+x/x $ebp
+x/x $ebp+4
+x/x $ebp+8
+echo 4 return stack items on esp\n
+x/x $esp
+x/x $esp+4
+x/x $esp+8
+x/x $esp+12
+echo next instruction in pc\n
+x/1i $pc
+end
+document ss
+show stacks and next instruction Forth task -- current thread
+end
+define s
+x/1i $pc
+si 1
+x/4i $pc
+end
+document s
+single step
+end
+define tr
+x/1i $pc
+ni 1
+x/4i $pc
+end
+document tr
+trace -- single step but run calls until they return
+end
+define br
+break
+end
+document br
+alias for BREAK
+end
+define g
+if ($argc != 0)
+set $pc = $arg0
+end
+continue
+end
+document g
+[addr] -- continue (at addr if supplied)
+end
+define gg
+delete
+continue
+end
+document gg
+clear breakpoints and continue
+end
+define gt
+tbreak $arg0
+continue
+end
+document gt
+[addr] -- continue till address -- a one stop break
+end
+define cl
+clear
+end
+document cl
+alias for CLEAR
+end
+define dl
+set confirm off
+delete
+set confirm on
+end
+document dl
+delete all breakpoints
+end
+define il
+x/$arg1i $arg0
+end
+document il
+[addr n] -- disassemble n instructions from addr
+end
+define dm
+x/$arg1xb $arg0
+end
+document dm
+[addr n] -- hex dump n bytes from addr
+end
+define rgs
+info registers
+end
+document rgs
+show registers current thread
+end
+define tds
+info threads
+end
+document tds
+show threads current process
+end
+define es
+set confirm off
+kill
+set confirm on
+end
+document es
+exit target to shell -- gdb keeps running
+end
+define bye
+detach
+quit
+end
+document bye
+detach debugged program and quit to shell
+end
+define words
+help user
+end

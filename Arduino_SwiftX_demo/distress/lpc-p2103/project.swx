@@ -1,0 +1,4 @@
+[STARTUP]
+INCLUDE=%SWIFTX\XCOMP\ARM\SWIFTX
+TITLE=Morse Code Distress Signal Demo
+

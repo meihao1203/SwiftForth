@@ -1,0 +1,9 @@
+Snow Leopard:
+
+mac/image/quartz/quartz-cgcontext3.f ->
+: CGCONTEXT ( wptr4 -- CGContextRef ) +W.REF @ @graphicsContext @graphicsPort ;
+
+mac/hotcoco/cocoafocus2.f ->
+OS nags when executing WEOWN and WEOWNSOME.
+Don't bother, they work as intended.
+You could redefine them using -STDERR and +STDERR.

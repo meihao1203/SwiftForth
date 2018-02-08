@@ -1,0 +1,13 @@
+#!/bin/sh
+# SwiftForth editor interface
+# Usage: editor filename line#
+
+# Run the user's editor script if it exists.
+[ -x "$HOME/.SwiftForth-editor" ] && exec "$HOME/.SwiftForth-editor" "$@"
+
+# Most Unix editors take +n as the line number to start on.
+[ -n "$VISUAL" ] && exec "$VISUAL" +$2 "$1"
+[ -n "$EDITOR" ] && exec "$EDITOR" +$2 "$1"
+
+echo '$0: No editor defined, and $VISUAL and $EDITOR are not set.' >&2
+exit 1

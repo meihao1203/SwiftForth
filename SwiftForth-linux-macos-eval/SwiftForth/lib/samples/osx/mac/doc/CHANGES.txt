@@ -1,0 +1,795 @@
+CMD-downArrow navigates to last changes made!
+
+This is my personal changes file, not all is in distribution.
+Filenames may end with digit(s), they are my revision indicators at home.
+Also see the directory-tree.txt
+The official files in the distribution do not have those digits!
+FORTH, Inc. have their own revision system.
+
+-- 9 December 2011 09:10:17 CET
+added fp stack words to fp-utils.f
+
+-- 12 December 2011 18:40:25 CET
+HotCoco demo sf-textviewfolder
+	textview-personality3.f --
+	changed 0" A Text View" mytvwin w.title
+	to s" A Text View" mytvwin w.title
+
+Note: there might be more 0" title strings around for windows.
+these ought to be changed to s" type strings.
+
+-- 16 January 2012 14:28:49 CET
+changed in all files
+	COCOA-FUNC to COCOA:
+	COCOASUPERFUNC to SUPERCOCOA:
+	COCOAFUNC-STRET to COCOA-STRET:
+	COCOASUPERFUNC-STRET to SUPERCOCOA-STRET:
+
+-- 27 February 2012 15:27:26 CET
+change <SYNC and SYNC> in COCOALAUNCH-MAIN-THREAD.F
+	added personality set and restore
+
+-- 29 February 2012 11:35:08 CET
+change in COREFOUNDATION.F
+	use 0 where kCFAllocatorSystemDefault is used
+	fixes bug when kCFAllocatorSystemDefault saved
+	in 10.6 was used in 10.7 and vice versa
+
+in HOTCOCO
+	textview demo updated
+	added demo
+
+-- 8 May 2012 09:18:32 CEST
+in nswindow5.f changed NEW.WINDOW back to do CREATE first for turnkey safety
+
+-- 31 May 2012 07:52:03 CEST
+syncing NSApp with sf.nsapp is added in init.cocoa in cocoastarter4.f
+in all files using sf.nsapp changed back to using NSApp instead
+didn't work out wrt to running snowcat turnkeyed sf in lion
+so changed back to original...
+
+-- 25 June 2012 21:12:00 CEST
+improved the objc calling mechanism: much faster
+rearanged things a bit, affected files:
+objc-extern2.f   fast calls
+cocoacore6.f
+cocoabridge6.f
+cocoafunc8.f
+cocoagoodies5.f
+
+-- 28 June 2012 09:06:47 CEST
+fixed GLOBAL: at last!
+bug in SF, used (CONSTANT) causing addresses to be inlined.
+Leon Wagner sent his fix as well and have compiled his version.
+Affected all cases where words created with GLOBAL: were turnkeyed, like NSApp. SF-NSAPP is out.
+See cocoalaunch-main-thread8.f
+
+-- 3 July 2012 21:41:42 CEST
+added the fp-passing.f file from George Kozlowski
+adjusted the DOUBLE(64bit) naming to similar ones used for FLOATS(32bits) in fp-utils.f
+added custom-control.f hotcoco demo
+
+-- 4 July 2012 19:54:26 CEST
+added the objc_msgSend_fpret stuff leading to COCOA-FPRET:
+
+-- 6 July 2012 07:26:05 CEST
+in cocoalaunch-main-thread8.f factored/added PUSHME and PUSHTERMINAL
+in cocoafilekite4.f and cocoaeditfile2.f added PUSHME in LOAD-FILE and EDIT-FILE to bring kite up front
+in hotcoco folder, replaced all constants created with @selector in  ['] @WHATEVERMETHOD >BODY @  for turnkey safety
+
+-- 10 July 2012 17:18:14 CEST
+in fp-precission.f implemented faster S>F F>S D>F and F>D versions
+
+-- 12 July 2012 09:06:28 CEST
+in cocoafilekite4.f and cocoaeditfile2.f removed PUSHME in LOAD-FILE and EDIT-FILE
+in cocoafilekite4.f added PUSHME in EZGET to bring kite up front
+
+-- 15 July 2012 20:40:46 CEST
+added FONT menu in SFMENU.NIB this allows changing the font etc. via the font panel when using a textview.
+
+-- 18 July 2012 11:32:58 CEST
+testing  C   continue including
+
+-- 9 August 2012 21:53:27 CEST
+added forMain in cocoagoodies5.f
+
+-- 12 August 2012 01:10:32 CEST
+testing running filekite on main thread using utillity class kiteclass
+see tests/testfilekite.f cocoa/cocoaeditfile.f and mac-sf.ldr
+
+-- 15 August 2012 10:52:36 CEST
+incorperated kite testing in cocoafilekite5.f and cocoaeditfile3.f
+running the filekite on main thread seems to do the trick
+
+-- 20 September 2012 15:34:00 CEST
+changed imposter (in all variances) to the correct spelled impostor
+
+-- 19 December 2012 16:43:11 CET
+in cocoalaunch-main-thread8.f PUSHME and PUSHTERMINAL are out
+added PUSHME to cocoagoodies5.f
+because GLOBAL: is functioning ok,
+testing the GLOBAL: versions of the message sender functions in cocoacore6.f and cocoabridge6.f
+commented /objc-calls out in /cocoalinks in cocoalaunch-main-thread8.f
+Note: simply use the "cocoacore6 org.f" "cocoabridge org.f" "cocoalaunch-main-thread8 org.f" and
+"starter4 org.f"  files when the test fails
+
+-- 8 January 2013 23:33:21 CET
+fixed bugs in HOME and DESKTOP, both in "waypoints.f"
+
+-- 9 January 2013 15:16:09 CET
+added bundlecheck.f which contains BUNDLED?
+changed >NIBPATH in /hotcoco/mynibs.f to use BUNDLED?
+
+-- 16 January 2013 12:35:28 CET
+in mypets.f changed LCOUNT in alias for @+
+in fp-utils.f replaced FPUSHS 2FPUSH and 4FPUSH with faster code versions
+
+-- 17 January 2013 11:26:59 CET
+include fp-conversion-fast.f instead of fp-conversion.f in mac-sf.f for testing
+in cocoastarter4.f changed "hi" welcome for "hello again"
+
+-- 31 January 2013 09:16:49 CET
+changed BREAK to NOD in task-control.f and all occurances in hotcoco examples
+rewrote myok.f in utils
+
+-- 1 February 2013 10:33:08 CET
+cleaned up textview-personality.f in hotcoco
+also slightly changed new-app.ldr, example sfapp looks better (for now)
+in cocoaedifile.f added redefinition of original EDIT-FILE as (EDIT-FILE) so we can access it
+
+-- 2 February 2013 11:19:26 CET
+ANEW is back in mypets.f (so much simpler than the E.Rather described overlay stuff)
+
+-- 8 February 2013 23:33:22 CET
+ANEW out again. remembered why dangerous to use: suppose reloading a file by accident,
+all defined after ANEWed word will be inadvertent be forgotten!
+SF is now customized: no (A)SWOOP and LOCALS|
+
+-- 10 February 2013 13:18:00 CET
+adapted last version wrt console window size and "custom" message
+
+-- 11 February 2013 12:25:50 CET
+removed macros.f from load-file. SKIP-TEXT is now defined in load-file
+added .ABOUT in cocoastarter4.f which will print all info about the app
+
+-- 13 February 2013 13:00:06 CET
+removed continue-including.f it works, but is now confined to help.ldr
+a load file for development only utilities.
+added include utils/mypatterns.f
+rearranged the mac-sf.f file
+
+-- 14 February 2013 18:16:16 CET
+added and removed stuff from Corefoundation.f
+
+-- 16 February 2013 12:21:26 CET
+added fast S>SF and SF>S in fp-utils.f
+
+-- 19 February 2013 22:56:42 CET
+corefoundation.f CFNumber@ is back with reversed input parameters ( key dictionary -- n )
+ioserviceshow4.f .PROPERTY and SHOW-PROPERTIES adapted to new CFNumber@
+
+-- 20 February 2013 11:53:21 CET
+added DUPTHAT ( n1 n2 -- n1 n1 n2 ) to mypatterns.f it subs for OVER -ROT
+
+-- 24 February 2013 13:02:00 CET
+moved including baden-rnd.f earlier in loader
+
+-- 6 March 2013 10:46:20 CET
+slightly changed .COCO en .ABOUT in cocoastarter4.f only build data
+
+-- 19 March 2013 15:56:58 CET
+better (XACTIVATE) and friends, (DISPATCH) and friends now dispatchtasking2.f
+ACTIVATE original POSIX version
+
+-- 20 March 2013 21:41:24 CET
+DISPATCH_QUEUE_PRIORITY_HIGH global queue in (DISPATCH) in dispatchtasking2.f
+
+-- 21 March 2013 09:31:01 CET
+ACTIVATE is now defered: DISPATCH or POSIX.ACTIVATE (the original version)
+see mac-sf.ldr
+
+-- 23 April 2013 18:29:46 CEST
+reversed situation, no deferred activate
+
+-- 24 April 2013 15:21:18 CEST
+added new patterns like UNDER+
+
+-- 24 May 2013 10:29:26 CEST
+fixed nsalert.f hotcoco example: welcome now runs on mainthread!!!
+
+-- 25 May 2013 22:45:24 CEST
+use new sf: SwiftForth i386-Mac OS X 3.4.6 24-May-2013
+full version: locals and swoop are in.
+
+-- 24 June 2013 23:53:31 CEST
+found a temporary fix for the 'bug' in applescript.f <SCRIPT>
+fixed stack pictures from COCOA: and family in cocoafunc8.f
+
+-- 7 October 2013 08:55:52 CEST
+moved (* out of mypets.f to the initial loader file
+moved create-dir.f fron tests to utils
+
+-- 11 October 2013 09:31:19 CEST
+added mybuttonstagged.f to hotcoco
+
+-- 5 November 2013 08:16:14 CET
+added @respondsToSelector: to goodies.f
+added no-nap.f to cocoa folder and in coco-sf.ldr
+added nonap in cocoastarter
+added mylocate.f to utils folder and in mac-sf.ldr
+
+-- 7 November 2013 11:15:38 CET
+added LLDB.f in system folder and lldb-debug.f in mac folder
+
+-- 2 December 2013 12:21:57 CET
+mylocate.f is out, not needed anymore in 1/12/2013 sf version
+
+-- 24 December 2013 09:41:13 CET
+updated the mystuff.f cocoa setup, including cocoa.ldr
+
+-- 31 December 2013 15:05:16 CET
+added specific signal handling for coco-sf in cocoalaunch-main-thread9.f
+
+-- 2 January 2014 19:14:11 CET
+installing signalhandler in IMPOSTOR in cocoalaunch-main-thread9-alternative.f
+
+-- 3 January 2014 10:34:41 CET
+cocoalaunch-main-thread8.f is back in
+moved the new signalhandler in its own file user-interrupts.f
+will be included in mac-sf.ldr
+/mysa will be called in goes.forth in cocoastarter4.f
+
+-- 5 January 2014 09:35:31 CET
+set the signalhandler in OPERATOR, this way tasks created with IMPOSTOR won't inherit this, hopefully.
+see cocoastarter4.f
+
+-- 8 January 2014 07:14:31 CET
+ACTIVATE is defered again, see mac-sf.ldr
+Means IMPOSTOR is GCD
+
+-- 9 January 2014 13:12:49 CET
+Reversed situ again: Ctrl-C and Cmd-. won't work! No user interrupts in GCD queues?
+
+-- 14 January 2014 10:41:53 CET
+For distribution, moved package in to swiftforth/lib/samples/osx/
+adapted paths in distro for: new-coco.f mac-sf.f waypoint.f mynibs.f readme-distro.pdf
+requires macros.f is back in mac-sf.ldr
+non-important corrections in readme
+
+-- 29 January 2014 11:00:56 CET
+corrected CFString> (doesn't leave a flag anymore, just the zaddress) and added CFString@ in Corefoundation.f
+addapted all IOkit files using it.
+
+-- 31 January 2014 20:31:04 CET
+added kCFAllocatorSystemDefault to Corefoundation.f
+
+-- 3 February 2014 13:14:16 CET
+replaced sf SKIP-TEXT with my own SKIP-TILL using Baden's NEXT-WORD, now better factored...
+
+-- 5 February 2014 20:29:59 CET
+only removed "test" strings from the startup, guess all is ok until further notice.
+
+-- 9 February 2014 10:08:48 CET
+removed the commented SKIP-TEXT stuff from macros.f in the ldr files
+I use the one from mypets.f
+Saved the complete mac folder: archived 2014-02-09 mac.zip
+Adapt all from distro to new sf version, which takes multiple output parameters:
+cocoabridge7.f forCocoa and for SuperCocoa
+mouselocation3.f
+quartz-cgdrawing3.f
+objc-extern2.f  <= only test stuff
+ABI-call-extras.f removed
+adapted the ldr files
+removed 2RET> instances, most relevant
+Take care with all points, sizes, ranges and 64b time values!
+For now added debug info while compiling functions and methods.
+Every function or method with 0 or 2 return parameters will be flagged, 1 return is normal, don't bother.
+Because 2RET> is out, will be noticed when...
+
+-- 14 February 2014 18:02:18 CET
+a lot of changes wrt TextView console etc. in the Hotcoco demo folder
+@font changed to plain 'font'  @font *is* an excisting method for a textstorage
+reordered textview-personality and textview-delegate
+textview-delegate now uses textview instance self as delegate
+2 textview consoles: simple return and enter are the same, the other is a sibley/mpw like console
+
+in new-app.f added new BYE to stop and quit NSApplication coco-sf
+
+-- 15 February 2014 11:32:59 CET
+added textcolor attribute to textview demo's
+
+-- 19 February 2014 14:26:11 CET
+non sibley textview will ignore mouse and up/down/let/right etc arrow insertion changes
+added abi-extras.f in mac-sf.f backin, because of >2RET
+
+-- 21 February 2014 10:23:27 CET
+start changing style to FORTH, Inc. way of doing things, where possible.
+
+-- 24 February 2014 10:43:50 CET
+mypets.f -> NEXTWORD returns counted string address
+cocoapaste3.f -> SOURCE-ID is set to -2 while loading scrap in INTERPRET-MAPPED
+CoreFoundation.f -> CARBON.framework is replaced by CoreFoundation.framework.
+
+-- 25 February 2014 09:48:04 CET
+sftococoa.f -> GetCurrentProcess is deprecated, recoded SF>COCOA
+also removed Carbon.framework change  -> sftococa2.f
+
+-- 28 February 2014 07:38:08 CET
+mypets.f -> added ((
+
+-- 5 March 2014 16:05:09 CET
+cocoapaste3.f -> GLOBAL: is fixed, so temp fixes removed -> cocoapaste4.f
+
+-- 7 March 2014 08:41:01 CET
+adapted the portable versions of cocoacore7.f and cocoabridge7.f -> cocoacore7-port.f and cocoabridge7-port.f
+fixed problem with HOME in waypoints.f -> s" CD" evaluate will chdir to home directory
+Note: CD ~  and $ cd ~  don't work!
+
+-- 10 March 2014 00:23:01 CET
+moved NSArray stuff from cocoanibs3.f to cocoagoodies5.f
+the .f files in the distribution get the .f extension. complies with FORTH, Inc. style.
+added xcallback.f (system folder) in mac-sf loader
+adapted readme
+
+-- 12 March 2014 08:15:37 CET
+cocoanibs3.f -> moved >nibpath from mynibs.f in and removed all non used classes and methods -> cocoanibs4.f
+
+-- 14 March 2014 12:05:24 CET
+bundlecheck.f -> added WHAMI
+
+-- 17 March 2014 13:34:38 CET
+bundling.f and included files rewritten. TURNKEY defined.
+Toy application -> toy-app.ldr
+
+-- 18 March 2014 08:59:17 CET
+app-specifics.f -> changed LINE to TXTLINE (can't use Quartz LINE otherwise !)
+added FileManager.f to Hotcoco
+adapted toy-app.ldr
+
+-- 21 March 2014 16:37:07 CET
+In OSX usr/include/sys/syslimits.h defines PATH_MAX as 1024.
+config.f -> changed MAX_PATH to 1024
+actually all pathbuffers should be at least 1024
+rebuild sfk and sf.
+
+-- 27 March 2014 07:41:07 CET
+Corefoundation.f -> added CFRetain and CFRunLoopContainsSource
+
+-- 31 March 2014 09:52:08 CEST
+filemanager.f moved to cocoa folder as cocoafilemanager.f and included with coco-sf.ldr
+renambed nibs folder to resources
+cocoanibs4.f -> changed nib path: /resources instead of /nibs
+                added COPY-RESOURCES
+bundlecheck.f -> removed all but BUNDLED?
+waypoints.f -> added CHWD CWD and WHAMI
+reorganised the turnkey stuff for testing toyapp2.ldr
+
+-- 1 April 2014 20:37:00 CEST
+waypoints.f -> recoded waypoints using %
+
+-- 2 April 2014 08:45:46 CEST
+testing MACPATH setup during compilation
+waypoints.f -> MAC uses MACPATH
+bundlecheck.f -> not bundle returns MACPATH -> bundlecheck2.f
+cocoanibs4.f -> recoded /NIBPATH using new BUNDLED? -> cocoanibs5.f
+
+-- 3 April 2014 09:30:05 CEST
+cocoalaunch-main-thread8.f -> added IMPOSTOR'S  at last!
+
+-- 4 April 2014 08:19:21 CEST
+cocoanibs5.f -> moved COPY-RESOURCES to its own file -> resources.f
+
+-- 10 April 2014 15:38:12 CEST
+finished changing and adapting the demo's in the hotcoco and quartz folders.
+seems ready for FORTH, Inc. now.
+
+-- 13 April 2014 09:55:34 CEST
+toy-app.f -> BYE changes
+               GOES.FORTH -> commented /INTERPRETER out, QUIT executes /INTERPRETER.
+cocoastarter4.f -> adapted GOES.FORTH
+INTERACTIVE in kernel could be adapted as well?
+
+-- 14 April 2014 08:55:12 CEST
+waypoints.f -> simplified code for directory setters using CHWD of course!
+
+-- 15 April 2014 12:09:29 CEST
+last touch on formatting: removed margin space in comments
+sfmenu3.f -> help2 added +ROOT to MACPATH, it helps...
+
+-- 16 April 2014 11:38:55 CEST
+waypoints.f -> added MYFOLDER
+baden-rnd.f -> changed all FLOAT occurances to S>F
+scrollview-for-nswindow5.f -> changed SFLOAT to S>SF
+Most if not all occurances of FLOAT, SFLOAT, INT and SINT are changed to standard versions.
+
+-- 18 April 2014 10:04:51 CEST
+app-specifics.f -> minor cosmetic change
+
+-- 19 April 2014 22:07:34 CEST
+task-control.f -> changed NOD to STOP, more consistent with original way back...
+
+-- 21 April 2014 08:12:40 CEST
+hotcoco demo textview:
+textview-personality5.f -> removed methods for main thread, only use selectors
+textview-delegate-io6.f -> removed methods for main thread, only use selectors
+look out for side effects, notice me please!
+added gcd-timers3.f in added scheduling folder, also for distro
+added fork2.f as gcd example in system folder, also for distro
+adapted readme.pdf accordingly.
+
+-- 22 April 2014 13:45:19 CEST
+mypets.f -> SKIPS compares *not* case sensitive.
+
+-- 4 May 2014 09:22:05 CEST
+tail optimize bug in NR>
+core.f -> made N>R and NR> ICODE versions.
+rebuild sfk and sf.
+
+-- 6 May 2014 23:24:11 CEST
+console.f -> made all visible and using FD-IN for all input words
+new sfk, sf and coco-sf
+saved previous versions
+
+-- 3 July 2014 13:32:09 CEST
+mac-sf.f -> ACTIVATE is deferred, Forth thread is POSIX
+
+-- 15 August 2014 23:55:47 CEST
+custom-control.f -> added SLIDER! to set control programmaticly
+
+-- 19 August 2014 09:31:36 CEST
+mycontroller5.f -> added to hotcoco. Shows IBOutlet use.
+cocoanibs5.f -> the NSBundle things are back in. Saved as cocoanibs6.f
+
+-- 19 October 2014 11:41:08 CEST
+temp-fixes.f -> added to system, incuded in mac-vfx.f and created new coco-sf
+this is a work around the Yosemite debug info glitch for NSOpenPanel stuff.
+rebuild coco-sf etc.
+
+-- 20 October 2014 22:10:35 CEST
+toy-app.f -> added nonap in goes.forth
+
+-- 21 October 2014 13:42:27 CEST
+added mybuttonstagged.f plus nib to hotcoco and reources.
+
+-- 22 October 2014 13:54:27 CEST
+added the debugger stuff and updated readme.pdf accordingly
+
+-- 24 Oct 2014 10:52:37 CEST
+temp-fixes.f -> added Yosemite fix to NEW.KITE as well
+
+-- 26 Oct 2014 11:02:10 CET
+osstatus.f -> added status comment in .oserror
+
+-- 30 Oct 2014 09:23:23 CET
+investigating bug in textview demo.
+remove textview attribute settings for now:
+sf-textview.ldr
+textview-personality5.f
+cocoa-console.f
+
+-- 31 Oct 2014 21:42:56 CET
+sfmenu3.f -> the fixed NEW.KITE is *NOT* working for some reason.
+Same code and setup works in the VFX version!?!
+Thus changed DO-LOAD-FILE -> sfmenu4.f
+toy-app.f -> now loads sfmenu4.f
+
+-- 9 Nov 2014 15:14:07 CET
+toy-app.f -> added -PARENT, which closes the bash shell used to launch coco-sf
+
+-- 11 Nov 2014 14:41:52 CET
+sfmenu4.f -> added do-menu-abort. DO-ABORT is DEFERred.
+new-app.f -> now uses sfmenu4.f sf-menu3.f is out.
+text-view demo removed color attributes.
+
+-- 17 Nov 2014 08:32:03 CET
+temp-fixes.f -> removed the NEW.KITE fix, not needed.
+
+-- 7 Jan 2015 00:59:27 CET
+mac-sf.f -> removed temp-fixes.f. Issue fixed in 10.10.1 ? All seems ok now.
+
+-- 9 Jan 2015 12:08:03 CET
+mac-sf.f -> temp-fixes.f in again, clear program cache before saving sf
+else you will use previous sf until you reboot!!!!
+All of a sudden the nagging in the REPL started again.
+
+-- 29 Jan 2015 22:33:59 CET
+temp-fixes.f -> causes crash kill 9 (fd-guard) after many other programs also opened panels
+---
+Output Console.app
+kernel[0]: coco-sf: guarded fd exception: fd 2 code 0x1 guard 0x8fd4dbfade2dead
+
+Output crashreport (relevant part)
+Crashed Thread:        2
+
+Exception Type:        EXC_GUARD
+Exception Codes:       0x4000000100000002, 0x08fd4dbfade2dead
+
+Thread 2 Crashed:
+0   libsystem_kernel.dylib        	0x99d4d1ce dup2 + 10
+1   ???                           	0x00006a26 0 + 27174
+2   ???                           	0x0000000e 0 + 14
+---
+temp-fixes2.f -> hopefully fixes this. works for now.
+mac-sf.f -> now includes temp-fixes2.f
+all ok on 10.10.2
+
+-- 31 Jan 2015 10:34:59 CET
+temp-fixes2.f -> cleaned up code and documentation
+
+-- 11 Jun 2015 11:50:15 CEST
+sfmenu4.f -> clean up
+
+-- 10 Aug 2015 22:59:57 CEST
+quartz-cgdrawing3.f -> added CGContextFillPath
+quartz-cgcontext.f -> testing faster drawing with CGContextFlush -> quartz-cgcontext2.f
+adapted cg.ldr
+adapted cgcontext-draw-test.f
+
+-- 11 Aug 2015 22:23:25 CEST
+cgcontext-squares-task-test2.f and cgcontext-squares-task-test3.f ->
+corrected stackpicture CHOOSE.TRANSPARENCY
+quartz-cgcontext2.f -> rewrote CGContextFlush
+cgpath-test.f -> changed all CGContextFlush into _CGContextFlush unsynced calls
+quartz-cgdrawing3.f -> added CGContextFillPath and CGContextSetRGBStrokeColor
+added image/quartz/cgcontext-color-draw-test.f
+
+-- 22 Aug 2015 19:17:19 CEST
+fork2.f -> rewrote FORK and JOIN, so every callback in the dispatch-group has
+its own USER variables !!! -> fork3.f  (hadn't count on that not being so)
+
+-- 23 Aug 2015 21:16:35 CEST
+fork3.f -> added dispatch_release. the dispatch_group will be released when done.
+hope it doesn't interfere with anything.
+
+-- 31 Aug 2015 15:23:06 CEST
+quartz-cgcontext2.f -> in CGContextFlush changed > in to U> !!!
+
+-- 27 Sep 2015 08:56:03 CEST
+found issues with fatan2 in fpmath -> FORTH, Inc. fixed it
+recompile coco-sf.
+
+-- 7 Oct 2015 12:42:56 CEST
+start implementing el cap fix. start of rewrite for the launch on main thread stuff.
+
+-- 29 Oct 2015 17:53:34 CEST
+all done.
+relevant changes:
+cocoanibs6.f -> added as comment for @NIB: Case Sensitive !
+added SHOW.NIB, works in all OSX versions for sfmenu4.f
+the @NIB /NIB combination doesn't work well with sfmenu.f for the (2) setup.
+cocoagoodies5.f -> added comment for FORMAIN: argument is an object !
+added cocoaforth.f -> generic ForthClass with doForth method executing on main thread using PASS
+cocoa/cocoalaunch-main-thread8.f -> split in Cocoa and impostor parts -> cocoa/cocoalaunch-main-thread9.f
+added impostor.f -> the impostor part
+added elcapitan.f contains main thread versions for NSWindow and Nibs
+temp-fixes2.f -> renamed yosemite.f
+cocoafilekite5.f -> changed to use PASS and PIMP.KITE delay time removed-> cocoafilekite6.f
+window-utils.f -> added MAKE.CONTENTVIEW (main thread executing)
+/bundling/resources.f -> adapted COPY-RESOURCE because of zerostring >NIBPATH
+hotcoco sfmenu4.f -> added exceptionhandler initialisation
+start with adapting hotcoco examples using PASS and SHOW.NIB
+hotcoco/bigwindowclass3.f -> NEW.BIGWINDOW on main thread
+
+-- 3 Nov 2015 08:46:10 CET
+scrollview-for-nswindow6.f -> stack picture TEXTVIEW and SCROLLVIEW adapted
+
+-- 5 Nov 2015 08:58:10 CET
+elcapitan.f -> CLOSE.WINDOW changed, it works again in all versions.
+
+-- 9 Nov 2015 10:41:52 CET
+nswindow5.f -> removed @display and used 0 in SHOW.WINDOW
+
+-- 29 Nov 2015 12:14:01 CET
+mypets.f -> SNAP" added POSTPONE CR
+
+-- 30 Nov 2015 02:17:04 CET
+fork3.f -> example changed
+
+-- 3 Oct 2016 21:37:20 GMT+2
+sierra.f -> fixes for macOS 10.12 Sierra                                                      *mainthread-issue
+bigwindowclass3.f -> changed NEW.BIGWINDOW in similar way as ADD.WINDOW in sierra.f           *mainthread-issue
+quartz-cgcontext2.f -> changed CGContextFlush to limit on 30 f/s
+
+-- 16 Oct 2016 13:04:15 CEST
+cocoawebview6.f -> Redefined essentials (NSView and WebKit) to be executed on the main thread  *mainthread-issue
+
+-- 17 Oct 2016 13:00:01 CEST
+mac-sf.f -> added possibility to include sierra.f
+cocoastarter4.f -> welcome adapted
+
+-- 18 Oct 2016 20:54:40 CEST
+runweb-test4.f -> includes the main-thread-correct webview6.f
+elcapitan.f -> changed to code most from sierra.f added elcapitan constant -> elcapitan2.f
+sierra.f -> stripped from code for elcapitan2.f added sierra constant -> sierra2.f
+yosemite.f -> added yosemite constant
+mac-sf.f -> adapted to new fixers, default is to have all fixes in
+cocoastarter4.f -> changed date for splash
+
+-- 3 Nov 2016 11:35:39 CET
+cause-gcd.f -> added CAUSE scheduler to examples
+
+-- 5 Nov 2016 08:21:13 CET
+toy-app.bld -> -PARENT executes on main-thread
+               added PAUSE to GOES.FORTH
+
+-- 7 Nov 2016 00:34:18 CET
+app-specifics.f -> changed appryn commands -> app-specifics2.f
+bundling4.f -> adapted to use app-specifics2.f
+
+-- 12 Nov 2016 11:39:07 CET
+quartz-cgcontext2.f -> changed CGContextFlush to limit on 30 f/s, and now for real!!!
+
+-- 13 Nov 2016 07:41:09 CET
+randomwalks.f -> recoded walk
+
+-- 14 Nov 2016 17:13:03 CET
+quartz-cgdrawing3.f -> added DRAW.SYNC recoded DRAW.TO
+                       recoded DOT accordingly -> quartz-cgdrawing4.f
+cg.f -> adapted to include quartz-cgdrawing4.f
+
+-- 22 Nov 2016 05:09:50 CET
+cocoaforth.f -> wrapped PASS in GET/RELEASE, have to synchronize in FORMAIN anyway
+toy-app.f -> changed ROOT to MYFOLDER for created toy-app
+
+-- 15 Dec 2016 14:29:09 CET
+nswindow5.f -> added SET.WSTYLE, ok in 10.10
+               perhaps on main thread in 10.11 and 10.12?
+new-coco.f -> exit before doing PROGRAM.
+Do PROGRAM by hand after including is done. Now all definitions in
+these load files can be located as well!
+
+-- 20 Dec 2016 21:25:53 CET
+cocoawebview6.f -> fixed MAKE-WEBVIEW
+
+-- 21 Dec 2016 07:46:59 CET
+cocoawebview6.f -> removed @setContentView: it's replaced by main thread using MAKE.CONTENTVIEW
+
+-- 3 Apr 2017 16:13:45 CEST
+runweb-test4.f -> DO.SHOW removed redundant ;
+
+-- 13 Apr 2017 12:34:33 CEST
+starting substituting SHOW.NIB where ever needed
+
+-- 14 Apr 2017 09:06:13 CEST
+mac-sf.f -> style and typos adjustments
+
+-- 17 Apr 2017 14:50:16 CEST
+spawn4.f -> added Carbon.framework in example
+IOServiceShow5.f -> cleaned up and prepared for distribution -> IOServiceShow6.f
+HIDManager3.f -> cleaned up and prepared for distribution -> HIDManager4.f
+IOKit-serialBSD.f -> cleaned up and prepared for distribution -> IOKit-serialBSD2.f
+added outview-personality.f
+added sf-outview-personality.f
+adapted README examples with additions
+
+-- 25 Apr 2017 10:51:33 CEST
+IOServiceShow6.f --> removed unused MasterPort call
+HIDManager4.f --> removed MATCHDEVICE alternative
+
+-- 11 May 2017 21:01:42 CEST
+cocoastarter4.f -> adapted splash
+
+-- 13 September 2017 at 20:46:39 GMT+2
+quartz-cgcontext2.f -> redefined Forth @CGContext to CGContext, avoiding confusion with 
+                       the Cocoa version -> quartz-cgcontext3.f
+cg.f -> adapted to include quartz-cgcontext3.f
+
+-- 17 October 2017 at 18:09:35 GMT+2
+cocoastarter4.f -> HOT.COCO added High Sierra fix and adapted splash
+
+-- 24 October 2017 at 21:56:14 CEST
+sfmenu4.f -> in HELPME changed S\" swiftforth/doc/swiftforth-linux-osx.pdf\""
+to S\" swiftforth/doc/swiftforth-linux-macos.pdf\""
+read_me_first -> removed trailing ) character from CD %swiftforth/bin/osx
+bigwindowclass3.f -> partly rewrite -> bigwindowclass4.f
+cocoa-focus.f -> adapted to include bigwindowclass4.f
+
+-- 25 October 2017 at 14:24:21 CEST
+tested distribution on 10.6, 10.10, 10.12 and 10.13.
+readme -> update
+added a Snow Leopard Read.Me to doc folder
+** wrapped up all and sent to Leon at Forth, Inc. **
+
+-- 31 October 2017 at 10:31:15 CEST
+elcapitan2.f -> removed /NIB, not needed to run on main thread. Won't show up.
+sierra2.f -> removed /NIB, id.
+
+-- 4 November 2017 at 22:03:42 CET
+** start testing rewritten COCOA
+mypatterns.f -> added -2@ for 2@ SWAP substitution
+cocoafunc9.f -> changed the order in the method structure so runtime words don't have
+					 to execute a SWAP. Sanity improvement.
+                COCOASELECTOR rewritten and RELINKSELECTOR adapted -> cocoafunc10.f
+cocoabridge7.f -> (FORCOCOA) and friends adapted to new structure order, 2@ SWAP is now 2@ -> cocoabridge8.f
+coco-sf.f -> adapted to new cocoafunc10.f and cocoabridge8.f
+
+-- 5 November 2017 at 17:09:31 CEST
+sfmenu4.f -> added SFClassREF, which will be initiated by awakefromnib
+
+-- 6 November 2017 at 23:55:53 CEST
+cocoagoodies5.f -> added @autorelease
+sftococoa2.f -> removed Carbon code, replaced with Cocoa NSApplication ActivationPolicy etc. -> sftococoa3.f
+cocoalaunch-main-thread9.f -> moved new SF>COCOA after SHAREAPP ! -> cocoalaunch-main-thread10.f
+cocoastarter4.f -> updated splash
+coco-sf.f -> adapted to new sftococoa3.f and cocoalaunch-main-thread10.f
+tested new apps on Snow Leopard, Yosemite, Sierra, High Sierra
+ok for now
+hotcoco -> added simplemenu.f
+
+-- 8 November 2017 at 21:37:28 CEST
+cocoastarter4.f -> HOT.COCO removed /MYSA, it doesn't work propperly and is not needed
+coco-sf.f -> removed INCLUDE system/user-interrupts.f
+sfmenu4.f -> added a new PANIC for DO-ABORT, SFMENU initiates it. Works good!
+
+-- 9 November 2017 at 12:18:01 CEST
+pthread_sigmask.f -> added to system
+mac-sf.f -> added INCLUDE system/pthread_sigmask.f
+cocoalaunch-main-thread10.f -> RUNCOCOA added THREAD-IGNORE-SIGINT
+
+-- 11 November 2017 at 12:55:12 CEST
+sfmenu4.f -> experimenting, decomment IMPOSTOR SLEEP and IMPOSTOR WAKE
+
+-- 12 November 2017 at 20:46:29 CEST
+cocoagoodies5.f -> removed SHAREAPP, only used once, functionality moved to sftococoa3.f
+sftococoa3.f -> SF>COCOA rewritten. Regular NSApplication init.
+cocoalaunch-main-thread10.f -> INIT.COCOA uses new SF>COCOA
+readme.rtf -> reworking the manual
+
+-- 15 November 2017 at 10:57:37 CEST
+readme.rtf -> reworking the manual
+cocoabridge7-port.f -> (FORCOCOA) and friends adapted to new structure order, 2@ SWAP is now 2@ -> cocoabridge8-port.f
+new-coco.f -> stripped from new FUNCTION: and MACPATH, automatic turnkey back in.
+mac/system -> added function-plus.f which defines new FUNCTION:
+mac-sf.f -> added MACPATH and INCLUDE system/function-plus.f
+toy-app.f adapted likewise
+cocoatarter4.f -> updated splash
+recompile coco-sf
+
+-- 16 November 2017 at 22:15:01 CEST
+hotcoco -> added included-menu2.f
+readme.rtf -> reworking the manual -> pages -> pdfOutiliner -> readme.pdf
+coco-sf.f -> changed cocoabridge7-port.f to cocoabridge8-port.f
+             reformat comments
+cosmetics, no recompile needed
+
+-- 17 November 2017 at 17:10:21 CEST
+toy-app.f -> fixed issue with locatable words in PROGRAM file
+               all included with bundling4.f is also saved in image -> new-toy.f
+read_me_first.txt -> adapted instructions
+readme.pdf -> adapted Appendix C to new-toy.f
+included-menu2.f -> recoded ADD.FILE INCLUDED>MENU etc.
+
+-- 18 November 2017 at 17:24:43 CEST
+tested Cocoa-for-SwiftForth distribution with SwiftForth evaluation version
+included-menu2.f -> adding some documentation
+cocoawebview4.f -> added HAIKU (that was an ommision !)
+tested Cocoa-for-SwiftForth distribution with full version in Snow Leopard, Yosemite, Sierra and High Sierra
+
+-- 20 November 2017 at 23:30:07 CEST
+sfmenu4.f -> rewrite, added /CB-INTERPRETER, -> sfmenu5.f
+included-menu2.f -> adapted to sfmenu5.f
+new-toy.f -> adapted to sfmenu5.ftesting sfmenu5.f
+
+-- 21 November 2017 at 11:55:33 CEST
+all files -> replaced NoTE: with Note:
+sfmenu5.f -> added CB-INTERPRETER/ and BYE-APP
+
+-- 27 November 2017 at 09:55:44 CEST
+sfmenu5.f -> worked on documentation
+
+-- 2 December 2017 at 22:11:43 CEST
+CoreFoundation.f -> >CFURL recoded, allows for spaces in pathname.
+Needs more testing on other macOS versions as well.
+                 -> added CFGetRetainCount
+                 -> update documentation
+cocoatarter4.f -> updated splash
+recompile coco-sf
+
+-- 4 December 2017 at 11:17:25 CEST
+included the new COCO-README.txt by Leon to the distro.
+adapted it to the automaticly turnkeying new-coco.f
+added directory-tree.txt to doc
+removed all revision digits in distribution
+update readme.pdf
+tested Cocoa-for-SwiftForth distribution with full version in Snow Leopard, Yosemite and Sierra
+** wrapped up all and sent to Leon at Forth, Inc. **

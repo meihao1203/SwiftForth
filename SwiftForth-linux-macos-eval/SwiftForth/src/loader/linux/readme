@@ -1,0 +1,19 @@
+Flat assembler for Linux is used to generate the SwiftForth loader.
+
+Get flat assembler here:
+
+http://flatassembler.net/
+
+Source file sf-loader.asm has all the segments, library imports, and
+code to generate sf-loader.img.
+
+The SwiftForth target compiler concatenates the binary kernel image to
+the end of sf-loader.img and updates the size fields in the ELF header.
+
+The SwiftForth turnkey compiler does the same with a full image of the
+dictionary plus the cross-reference table.
+
+Run make.sh to generate a new sf-loader.img (moved to SwiftForth/bin/linux
+directory at the end).  The batch file assumes flat assembler is in your path.
+
+bash make.sh

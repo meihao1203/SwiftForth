@@ -1,0 +1,17 @@
+As of OSX 10.11 El Capitan, security has become a priority. The Cocoa extensions for this Forth
+runs ok with gatekeeper in all settings and doesn't touch any System related stuff. SIP doesn't
+concern us here. But the OS keeps nagging in Console.app, allthough it looks like that's all it
+does. Still I like to shut it up.
+
+To create your own code sign certificate, follow the guide in:
+doc/debugger/Installing GDB on OS X Mavericks - Neil Traft.pdf
+
+Terminal:
+man codesign
+
+Codesign coco-sf to avoid "SecTaskLoadEntitlements failed error=22" messages in Console.app
+
+codesign -s "certificate name" /Full/path/to/coco-sf
+
+Just follow the prompts.
+

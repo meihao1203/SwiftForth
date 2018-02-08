@@ -1,0 +1,17 @@
+mygdb are my MacsBug like words for GDB
+
+Used as follows:
+
+Adjust path to  mygdb  in  gdbinit
+Save as  .gdbinit  (with dot in front) in your user home directory
+
+Next time GDB launches it knows about these extensions
+Typing   words  in GDB will give some info
+
+As of Mavericks, gdb is out, lldb is in. You can use the lldb-debug.ldr file for that.
+So far no MacsBug like actions are defined.
+
+If you still want to use gdb (and the MacsBug stuff ;-) you'll need to install it.
+See the 'BuildingOnDarwin - GDB Wiki.pdf' and 'Installing GDB on OS X Mavericks - Neil Traft.pdf' files.
+It appears you have to sudo the codesign process, at least on my system:
+sudo codesign -s gdb-cert $(which gdb)

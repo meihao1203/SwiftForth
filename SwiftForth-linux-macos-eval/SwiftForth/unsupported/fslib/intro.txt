@@ -1,0 +1,263 @@
+
+
+  The Forth Scientific Library
+  ____________________________________________
+
+  This directory contains approximately 50 math routines provided by the Forth
+  Scientific Library Group (FSLG - for a list of participants see the end of
+  this note).
+
+  ALTHOUGH FORTH, INC. HAS PERFORMED LIMITED TESTS ON MOST OF THESE ROUTINES,
+  WE DID NOT THOROUGHLY REVIEW THEM FOR CODE QUALITY, STYLE, AND ROBUSTNESS.
+  THE FORTH SCIENTIFIC LIBRARY IS SPECIFICALLY EXEMPTED FROM SWIFTFORTH
+  TECHNICAL SUPPORT.  IF YOU NEED HELP WITH ANY OF THESE ROUTINES, CONTACT THE
+  AUTHOR AT THE EMAIL ADDRESS GIVEN BELOW, OR THE FORTH SCIENTIFIC LIBRARY AT
+  scilib@taygeta.com.
+
+  To load and run any of these routines you will first need to load
+  fsl-util.f This file contains common definitions used by most of the FSL
+  routines. It also contains a value  TEST-CODE?  which controls the loading
+  of test code for many of the routines.  TEST-CODE? is set to  TRUE  as
+  shipped.
+
+  The FSL routines use the ANS conversion word F>D (and friends), which
+  require truncation rather than rounding on floating to integer conversion.
+  SwiftForth floating point can be set either to round (MAKE-ROUND) or to
+  truncate (MAKE-FLOOR). To ensure ANS compatibility, MAKE-FLOOR is executed
+  in  fsl-util.f  .
+
+  Some FSL routines require others, either for operation or for test code.
+  These requirements are noted individually below.
+
+  All routines supplied here will load without errors with SwiftForth.  For
+  routines that contain test code, we have verified that the test code gives
+  correct answers. Routines that do not contain test code and for which the
+  correct answers are not obvious have not been verified, and are marked  (Not
+  tested).
+
+  The FSL routines will operate correctly with SwiftForth in the usual
+  load-and-run environment.  But note that for efficiency, SwiftForth returns
+  data addresses as absolute addresses in Windows' virtual memory. The effect
+  of this is that if you make a turnkey executable including FSL routine(s)
+  and run it on another computer, it may not execute correctly if the routine
+  compiled any references to data addresses.  See Sections 5.1.3 and 4.4.2 in
+  the SwiftForth manual.
+
+  The index numbers of the routines were assigned by the FSLG.  A few numbers
+  omitted in the list below indicate routines not included in this package
+  because they have not been verified to load and run without error.
+
+  The listing of the individual routines follows.  Each of these has been
+  reviewed and accepted by the FSLG.  The reviewed code is also available via
+  anonymous FTP at ftp.taygeta.com/pub/Forth/Scientific  or via WWW at
+  http://www.taygeta.com/scilib.html (but note that the fsl-util.f file
+  included here is specific to SwiftForth, and some of the FSL routines
+  supplied here have been edited in minor ways to be compatible with the given
+  fsl-util.f  file and with SwiftForth).
+
+  For each routine is given: name, author, name of file, prerequisites (if
+  any), and a note if the routine is untested.
+
+
+   1. Real Exponential Integral (ACM #20)                         Skip Carter
+        File: expint.f
+
+   2. Complete Elliptic Integral (ACM #149)                       Skip Carter
+        File: elip.f
+
+   3. Polynomial evaluation by the Horner method                  Skip Carter
+        File: horner.f    Prerequisite: expint.f (for testing)
+
+   4. Logistic function and its first derivative                  Skip Carter
+        File: logistic.f
+
+   5. Cube root of real number by Newton's method                 Julian Noble
+        File: cube_rt.f
+
+   6. Solution of cubic equations with real coefficients          Julian Noble
+        File: cubic.f
+
+   7. Regula Falsi root finder                                    Julian Noble
+        File: regfalsi.f
+
+   8. Fast Hartley (Bracewell) Transform                          Skip Carter
+	File: hartley.f
+       (supplemental utilities and tests in file: harttest.f  by  Marcel Hendrix)
+
+   9. Aitken Interpolation (ACM #70)                              Skip Carter
+        File: aitken.f    Prerequisite: logistic.f (for testing)
+
+  10. Hermite Interpolation (ACM #211)                            Skip Carter
+        File: hermite.f   Prerequisite: logistic.f (for testing)
+
+  11. Lagrange Interpolation (ACM #210)                           Skip Carter
+        File: lagrange.f
+
+  12. Forward and Backward divided differences                    Skip Carter
+        File: divdiffs.f   (Not Tested)
+
+  13. Newton Interpolation with Divided differences (ACM 168,169) Skip Carter
+        File: newton.f    Prerequisites: divdiffs.f, logistic.f (for testing)
+
+  14. Factorial                                                   Skip Carter
+        File: factorl.f
+
+  15. Shell sort for floating point arrays                        Charles Montgomery
+        File: shellsrt.f
+
+  16. Exponentiation of a series  (ACM # 158)                     Skip Carter
+        File: seriespw.f  Prerequisites: factorl.f, horner.f (for test code)
+
+  17. Polynomial and Rational function interpolation and extrapolation
+        File  polrat.f                                            Marcel Hendrix
+
+  18. The Gamma, LogGamma and reciprocal Gamma functions          Skip Carter
+        File: gamma.f     Prerequisite: horner.f
+
+  19. Adaptive Integration using Trapezoid rule                   Julian Noble
+        File: adaptint.f   (Not Tested)
+
+  20. Parabolic Cylinder functions and related Confluent Hypergeometric functions
+        File: pcylfun.f   Prerequisites: gamma.f, horner.f        Skip Carter
+
+  21. Special Polynomial (Chebyshev, Hermite, Laguerre, Generalized Laguerre,
+      Legendre and Bessel) Evaluation                             Skip Carter
+        File: polys.f
+
+  22. Conversion between calendar date and Julian day (ACM 199)
+        File: dates.f                                             Skip Carter
+
+  23. R250  (also minimal standard) Pseudo-random number generator
+        File: r250.f                                              Skip Carter
+
+  24. RAN4 Pseudo-random number generator                         Gordon Charlton
+        File: ran4.f
+
+  25. Finite segment of Hilbert Matrices, their inverses and determinants
+        File: hilbert.f                                           Skip Carter
+
+  26. FIND nth element of an unsorted array (ACM #65)             Skip Carter
+        File: find.f
+
+  27. Gauss-Legendre Integration                                  Skip Carter
+        File: gauleg.f
+
+  28. Complete Elliptic Integral of the first kind
+      and second kind (ACM #55 and #56)                           Skip Carter
+        File: elip12.f    Prerequisite: horner.f
+
+  29. 4th order and adaptive Runge-Kutta solvers for systems of ODEs
+        File: runge4.f   (Tested partially)                       Skip Carter
+
+  30. Complete Elliptic Integrals of 1st and 2nd kinds (ACM #165)
+        File: KandE.f                                             Skip Carter
+
+  31. Telescope 1 (ACM 37) (reduction of degree of polynomial approximations)
+        File: telscop1.f  Prerequisite: factorl.f (for test)      Skip Carter
+
+  32. Telescope 2 (ACM 38)                                        Skip Carter
+        File: telscop2.f  Prerequisite: factorl.f (for test)
+
+  33. LUFACT, LU Factorization of square matrices                 Skip Carter
+        File: lufact.f    Prerequisites: structs.f, hilbert.f
+
+  NOTE: File structs.f  by itself provides a useful set of functions for
+        building and manipulating data structures.  See the text file
+        structs.txt  for a discussion of it.
+
+  34. Determinant of an LU factored matrix                        Skip Carter
+        File: dets.f      Prerequisites: lufact.f, hilbert.f (for test)
+
+  35. Back-substitution solution for LU factored linear systems   Skip Carter
+        File: backsub.f   Prerequisite: lufact.f
+
+  36. Inverse of an LU factored matrix                            Skip Carter
+        File: invm.f      Prerequisites: lufact.f, backsub.f, hilbert.f (test)
+
+  37. Four methods for Direct Fourier Transforms                  Skip Carter
+        File: dfourier.f  Prerequisites: complex.f, cmath.f  (for testing)
+
+  38. Radix-2 Fast Fourier Transform routines                     Skip Carter
+      (5 versions one, two, and three butterflies, tabular, non-tabular)
+        File: ffourier.f  Prerequisites: complex.f, cmath.f (for testing)
+
+  NOTE: Files complex.f and cmath.f by themselves provide useful sets of
+        complex number functions.
+
+  39. Singular Value Decomposition                                Marcel Hendrix
+        File: svd.f      Prerequisite: gaussj.f
+
+  40.  Amoeba -- Multidimensional Simplex minimization of a function
+        File: amoeba.f  (Partially tested)                        Marcel Hendrix
+
+  41. Sunday Quicksearch                                          Leonard Morgenstern
+        File: sunday.f
+
+  42. Gauss probability function  (ACM #209)                      Skip Carter
+        File: gauss.f     Prerequisites: horner.f, expint.f
+
+  43. Regular spherical Bessel functions jn(x), n=0-9             Julian Noble
+        File: sph_bes.f   (Not Tested)
+
+  44. 16-bit Cyclic Redundancy Checksums                          Gordon Charlton
+        File: crc.f
+
+  45. Simpsons rule and Romberg algorithm Quadrature routines     Marcel Hendrix
+        File: integral.f  Prerequisites: logistic.f, polrat.f
+
+  47. BIG -- Arithmetic on big signed magnitude numbers           Len Zettel
+        File: big.f
+
+  48. Gauss-Jordan Elimination                                    Marcel Hendrix
+        File: gaussj.f
+
+  50. Fast Walsh Transform                                        Skip Carter
+        File: walsh.f
+
+
+
+
+
+  FSLG Participants:
+
+   c.mccormack@ieee.org                   Chris McCormack
+   erather@forth.com                      Elizabeth Rather
+   ghaydon@forsythe.stanford.edu          Glen Haydon
+   JimBrakefd@aol.com                     Jim Brakefield
+   jvn@virginia.edu                       Julian Noble
+   skip@taygeta.com     	          Skip Carter
+   richard.beldyk@mecheng.fullfeed.com    Richard Beldyk
+   tstark@cix.compulink.co.uk             Tony Reid-Anderson
+   chergr@lure.latrobe.edu.au             Richard Rothwell
+   NLeonard@aol.com                       Leonard Morgenstern
+   Gus_Calabrese@onenet-bbs.org           Gus Calabrese
+   gary@forth.org                         Gary Bergstrom
+   munroec@usa.net                        Munroe C. Clayton
+   warren@ross.com                        Warren Bean
+   chihyu@starbase.neosoft.com            ChihYu Jesse Chao
+   cgm@utphya.panet.utoledo.edu           Charles G.Montgomery
+   mhx@iaehv.iaehv.nl                     Marcel Hendrix
+   mumwp1@uxa.ecn.bgu.edu                 Michel W Pelletier
+   gordon@charlton.demon.co.uk            Gordon Charlton
+   andrejs@crl.com                        Andrejs Vanags
+   mlists@digalog.com                     Stephen Sjolander
+   penev@venezia.rockefeller.edu          Penio Penev
+   johns@oslonett.no                      John Svae
+   fabrice.pardo@bagneux.cnet.fr          Fabrice Pardo
+   znmeb@teleport.com                     M. Edward Borasky
+   reaves@pacbell.net                     Richard Reaves
+   bmort@nas.com                          Bob Mortenson
+   ferren.macintyre@ucg.ie                Ferren MacIntyre
+   zettel@acm.org                         Len Zettel
+   billz@inlink.com                       Bill Zimmerly
+   alaric@abwillms.demon.co.uk            Alaric B. Williams
+   f3meyer@texoma.com                     Fred Meyer
+   mfriesen@sfu.ca                        Merlin Friesen
+   ba075@lafn.org                         Jay Topping
+   luis@cybogen.com                       Luis Commins
+   walden@pawneenet.com                   Bill Walden
+   phma@trellis.net                       Pierre Abbat
+
+   Mail to:     scilib@taygeta.com will be automatically
+   distributed to all the participants listed above.
+

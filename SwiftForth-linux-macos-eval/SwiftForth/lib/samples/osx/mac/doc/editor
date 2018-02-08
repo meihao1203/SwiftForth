@@ -1,0 +1,16 @@
+#!/bin/sh
+# SwiftForth editor interface
+# Usage: editor filename line#
+
+# Run the user's editor script if it exists.
+
+# BBEdit
+bbedit +$2 "$1"
+
+# TextWrangler
+# edit +$2 "$1"
+
+# TextMate
+# mate -l +$2 "$1"
+
+exit 1
